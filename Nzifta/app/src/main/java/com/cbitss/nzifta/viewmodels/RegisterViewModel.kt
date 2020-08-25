@@ -88,7 +88,7 @@ var userageIstype = false
 
             disposables.add(disposable)
 
-Toast.makeText(view.context,"This is testing",Toast.LENGTH_LONG).show()
+
 
     }
 

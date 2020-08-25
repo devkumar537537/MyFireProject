@@ -122,8 +122,7 @@ class FirebaseFiles : AppCompatActivity() {
             if(!emitter.isDisposed)
             {
                 if(it.isSuccessful)
-                {
-                    emitter.onComplete()
+               
                 }else
                 {
                     emitter.onError(it.exception!!)
@@ -131,9 +130,21 @@ class FirebaseFiles : AppCompatActivity() {
 
         }
 
-            if (it.isSuccessful) {
-              var storageReference = FirebaseStorage.getInstance().getReference("UserImages").child(userid).child("images/"+ UUID.randomUUID().toString())
-storageReference.putFile(profileimage).addOnCompleteListener {
+
+
+
+
+
+        }
+
+
+    }
+
+    fun insetimage(uri: Uri,userid: String) = Completable.create {emitter ->
+
+
+           var storageReference = FirebaseStorage.getInstance().getReference("UserImages").child(userid).child("images/"+ UUID.randomUUID().toString())
+storageReference.putFile(uri).addOnCompleteListener {
 
 
 
@@ -150,12 +161,6 @@ storageReference.putFile(profileimage).addOnCompleteListener {
             }
         }
     }
-}
-
-
-
-
-        }
 
 
     }
