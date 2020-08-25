@@ -20,15 +20,15 @@ class ApplyScreenModel(val repositry: Repositry) : ViewModel() {
     private val disposables = CompositeDisposable()
     fun inserapplied_user(view: View)
     {
-        if(desgination.isNullOrBlank() || desgination.isNullOrEmpty())
+        if( desgination.isNullOrEmpty())
         {
             authlistener?.OnFailed("Please fill all field")
             return
-        }else if(expect_salary.isNullOrEmpty() || expect_salary.isNullOrBlank())
+        }else if(expect_salary.isNullOrEmpty() )
         {
             authlistener?.OnFailed("Please fill all field")
             return
-        }else if(brief_description.isNullOrBlank() || brief_description.isNullOrEmpty())
+        }else if(brief_description.isNullOrBlank() )
         {
             authlistener?.OnFailed("Please fill all field")
             return
@@ -36,7 +36,7 @@ class ApplyScreenModel(val repositry: Repositry) : ViewModel() {
 
         authlistener?.OnStart()
 
-        val disposable = repositry.insertappliesuser(id!!,desgination!!,expect_salary!!,brief_description!!)
+        val disposable = repositry.repositryInsertuser(id!!,desgination!!,expect_salary!!,brief_description!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

@@ -87,10 +87,7 @@ class AddContent : Fragment() ,Authlistener,KodeinAware {
     }
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 
     private fun initisevalueinspinner() {
 

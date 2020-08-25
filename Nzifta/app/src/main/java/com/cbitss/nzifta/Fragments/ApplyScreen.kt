@@ -38,6 +38,7 @@ var userid: String? = null
         viewmodel = ViewModelProviders.of(this,factory).get(ApplyScreenModel::class.java)
         bindiing.applymodel = viewmodel
         bindiing.lifecycleOwner = this
+        viewmodel.authlistener = this
         return bindiing.root
     }
 

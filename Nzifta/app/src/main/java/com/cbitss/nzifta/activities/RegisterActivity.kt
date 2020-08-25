@@ -46,6 +46,7 @@ class RegisterActivity : AppCompatActivity(),KodeinAware,Authlistener {
       binding = DataBindingUtil.setContentView(this, R.layout.activity_register)
         viewmodel = ViewModelProviders.of(this, factory).get(RegisterViewModel::class.java)
         binding.regitsmodel = viewmodel
+        viewmodel.authListener = this
 
         var getvalue = intent.getStringExtra("RegisterAs")
         viewmodel.usertype = getvalue

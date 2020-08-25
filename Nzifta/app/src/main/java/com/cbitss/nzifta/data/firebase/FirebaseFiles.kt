@@ -131,26 +131,26 @@ class FirebaseFiles : AppCompatActivity() {
 
         }
 
-//            if (it.isSuccessful) {
-//              var storageReference = FirebaseStorage.getInstance().getReference("UserImages").child(userid).child("images/"+ UUID.randomUUID().toString())
-//storageReference.putFile(profileimage).addOnCompleteListener {
-//
-//
-//
-//        if (it.isSuccessful) {
-//            storageReference.getDownloadUrl().addOnSuccessListener {
-//                if (it != null) {
-//                    var imagurl = it.toString()
-//                    var databaseReference =
-//                        FirebaseDatabase.getInstance().getReference("Register").child(userid)
-//                    databaseReference.child("imageurl").setValue(imagurl)
-//                  emitter.onComplete()
-//                }
-//
-//            }
-//        }
-//    }
-//}
+            if (it.isSuccessful) {
+              var storageReference = FirebaseStorage.getInstance().getReference("UserImages").child(userid).child("images/"+ UUID.randomUUID().toString())
+storageReference.putFile(profileimage).addOnCompleteListener {
+
+
+
+        if (it.isSuccessful) {
+            storageReference.getDownloadUrl().addOnSuccessListener {
+                if (it != null) {
+                    var imagurl = it.toString()
+                    var databaseReference =
+                        FirebaseDatabase.getInstance().getReference("Register").child(userid)
+                    databaseReference.child("imageurl").setValue(imagurl)
+                  emitter.onComplete()
+                }
+
+            }
+        }
+    }
+}
 
 
 
@@ -159,27 +159,27 @@ class FirebaseFiles : AppCompatActivity() {
 
 
     }
-    fun insertuser(userid: String,designation: String,expectedsalar: String,brief_descripton:String)  = Completable.create { emitter ->
-        var databaseReference = FirebaseDatabase.getInstance().getReference("AppliedUsers").child(userid)
-       var insertusermap : HashMap<String,String> = HashMap()
-       insertusermap.put("userid",userid)
-        insertusermap.put("designation",designation)
-        insertusermap.put("expectedSalary",expectedsalar)
-        insertusermap.put("briefdescription",brief_descripton)
 
-        databaseReference.setValue(insertusermap).addOnCompleteListener {
-            if(!emitter.isDisposed)
-            {
-                if(it.isSuccessful)
+
+    fun insertcontent(userid: String,designation: String,expectedsalar: String,brief_descripton:String) = Completable.create {emitter ->
+        var databaseReference = FirebaseDatabase.getInstance().getReference("AppliedUsers")
+
+        var contentmap: HashMap<String,String> = HashMap()
+        contentmap.put("userid",userid)
+        contentmap.put("desigantion",designation)
+        contentmap.put("expected_Salary",expectedsalar)
+        contentmap.put("brief_description",brief_descripton)
+
+        databaseReference.child(userid).setValue(contentmap).addOnCompleteListener {
+            if (!emitter.isDisposed) {
+                if (it.isSuccessful)
                 {
                     emitter.onComplete()
-                }else
-                {
-                    emitter.onError(it.exception!!)
                 }
+                else
+                    emitter.onError(it.exception!!)
             }
         }
-
     }
 
 }

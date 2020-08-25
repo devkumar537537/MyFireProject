@@ -23,5 +23,7 @@ fun fetchUsertype() = firebase.fetchusetype()
 
     ) = firebase.insertUser(email, password, name, number, city, age, number_of_filsm, gender, aboutwork,imaguri,usertype)
     fun fetchContent(categorytag: String) = firebase.getcategoryContent(categorytag)
-fun insertappliesuser(userid: String,designation: String,expected_salary: String,bried_description: String) = firebase.insertuser(userid,designation,expected_salary,bried_description)
+fun repositryInsertuser(userid: String,designation: String,expected_salary:String,brief_description: String) = firebase.insertcontent(
+    userid,designation,expected_salary,brief_description
+)
 }
