@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/up_comingmoviesholder"
+    app:startDestination="@id/categoryButtonFragment">
+
+    <fragment
+        android:id="@+id/categoryButtonFragment"
+        android:name="com.cbitss.nzifta.Fragments.CategoryButtonFragment"
+        android:label="fragment_category_button"
+        tools:layout="@layout/fragment_category_button" >
+        <action
+            android:id="@+id/action_categoryButtonFragment_to_listScreen"
+            app:destination="@id/listScreen" />
+        <argument
+            android:name="categoryname"
+            app:argType="string"
+            android:defaultValue="Movies"
+
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/listScreen"
+        android:name="com.cbitss.nzifta.Fragments.ListScreen"
+        android:label="fragment_list_screen"
+        tools:layout="@layout/fragment_list_screen" >
+        <action
+            android:id="@+id/action_listScreen_to_detailScreen"
+            app:destination="@id/detailScreen" />
+        <argument
+            android:name="categoryname"
+            app:argType="string"
+            android:defaultValue="Movies"
+
+            />
+        <argument
+            android:name="imageUrl"
+            app:argType="string"
+            android:defaultValue="Movies"
+            />
+        <argument
+            android:name="project_title"
+            app:argType="string"
+            android:defaultValue="Movies"
+            />
+        <argument
+            android:name="project_description"
+            app:argType="string"
+            android:defaultValue="Movies"
+            />
+        <argument
+            android:name="banner_name"
+            app:argType="string"
+            android:defaultValue="Movies"
+            />
+
+        <argument
+            android:name="userid"
+            app:argType="string"
+            android:defaultValue="Movies"
+            />
+        <argument
+            android:name="designation"
+            app:argType="string"
+            android:defaultValue="Movies"
+            />
+        </fragment>
+    <fragment
+        android:id="@+id/detailScreen"
+        android:name="com.cbitss.nzifta.Fragments.DetailScreen"
+        android:label="fragment_detail_screen"
+        tools:layout="@layout/fragment_detail_screen" >
+        <action
+            android:id="@+id/action_detailScreen_to_applyScreen"
+            app:destination="@id/applyScreen" />
+        <argument
+            android:name="imageUrl"
+            app:argType="string"
+            android:defaultValue="Movies"
+            />
+        <argument
+            android:name="project_title"
+            app:argType="string"
+            android:defaultValue="Movies"
+            />
+        <argument
+            android:name="project_description"
+            app:argType="string"
+            android:defaultValue="Movies"
+            />
+        <argument
+            android:name="banner_name"
+            app:argType="string"
+            android:defaultValue="Movies"
+            />
+
+        <argument
+            android:name="userid"
+            app:argType="string"
+            android:defaultValue="Movies"
+            />
+        <argument
+            android:name="designation"
+            app:argType="string"
+            android:defaultValue="Movies"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/applyScreen"
+        android:name="com.cbitss.nzifta.Fragments.ApplyScreen"
+        android:label="fragment_apply_screen"
+        tools:layout="@layout/fragment_apply_screen" >
+        <argument
+            android:name="userid"
+            app:argType="string"
+            android:defaultValue="Movies"
+            />
+    </fragment>
+
+</navigation>

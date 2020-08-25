@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    >
+    <data>
+
+        <variable
+            name="homeviewmodel"
+            type="com.cbitss.nziftaadmin.viewmodels.HomeViewModel" />
+    </data>
+    <ScrollView
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        tools:context=".Fragments.HomeFragment">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/main_toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:src="@drawable/logo"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/slogontext"
+                    android:text="Lorem Ipsume"
+                    android:padding="10dp"
+                    android:textColor="@color/colorAccent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:textSize="25sp"/>
+
+
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginTop="90dp"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toBottomOf="@id/main_toolbar_layout"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Welcome Admin"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="8dp"/>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/buttonbackground"
+                    android:textSize="18sp"
+                    android:textAllCaps="false"
+                    android:layout_margin="8dp"
+                    android:layout_marginTop="20dp"
+                    android:padding="8dp"
+                    android:onClick="@{homeviewmodel::movetoaddregister_type}"
+                    android:textColor="@color/text_color_with_red"
+                    android:text="@string/Add_registertype" />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/buttonbackground"
+                    android:textSize="18sp"
+                    android:textAllCaps="false"
+                    android:onClick="@{homeviewmodel::move_to_category}"
+                    android:padding="8dp"
+                    android:layout_margin="8dp"
+                    android:textColor="@color/text_color_with_red"
+                    android:text="@string/add_category_" />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/buttonbackground"
+                    android:textSize="18sp"
+                    android:textAllCaps="false"
+                    android:layout_margin="8dp"
+                    android:padding="8dp"
+                   android:onClick="@{homeviewmodel::move_tocontent}"
+                    android:textColor="@color/text_color_with_red"
+                    android:text="@string/add_content" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/buttonbackground"
+                    android:textSize="18sp"
+                    android:textAllCaps="false"
+                    android:layout_margin="8dp"
+                    android:padding="8dp"
+                    android:textColor="@color/text_color_with_red"
+                    android:text="@string/see_applies" />
+
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+</layout>

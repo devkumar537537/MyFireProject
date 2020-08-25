@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    app:cardCornerRadius="5dp"
+    android:layout_height="wrap_content">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="10"
+    android:layout_height="match_parent">
+
+
+
+
+    <ImageView
+
+        android:id="@+id/profile_circle_image"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_weight="3"
+        android:src="@drawable/sample"
+        android:scaleType="fitXY"
+      />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="2dp"
+        android:layout_weight="5"
+        android:id="@+id/linearlayout">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/format_item_title"
+    android:text="title of Itme"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="brief description"
+            android:id="@+id/biefintroduction"/>
+
+
+
+    </LinearLayout>
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/close"
+        android:id="@+id/delete_item"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="2"/>
+</LinearLayout>
+</androidx.cardview.widget.CardView>

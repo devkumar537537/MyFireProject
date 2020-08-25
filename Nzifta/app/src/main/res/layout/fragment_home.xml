@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    >
+    <data>
+        <variable
+            name="homeviewmodela"
+            type="com.cbitss.nzifta.viewmodels.HomeFragmentViewModel" />
+
+    </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Fragments.Home">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/home_toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:src="@drawable/logo"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/slogontext"
+                    android:text="Lorem Ipsume"
+                    android:padding="10dp"
+                    android:textColor="@color/colorAccent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:textSize="25sp"/>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_toolbar_layout">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/about_us"
+                    android:layout_margin="10dp"
+                    android:padding="5dp"
+                    android:textSize="20sp"
+                    android:id="@+id/aboutus"
+                    android:textAlignment="center"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:id="@+id/line_layout"
+                    android:orientation="horizontal"
+                    android:background="@color/colorPrimary"
+
+                    android:layout_below="@+id/aboutus"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@+id/line_layout"
+                    android:id="@+id/btn_spinner_layout">
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textAllCaps="false"
+                        android:layout_margin="8dp"
+                        android:onClick="@{homeviewmodela::moveto_Regsiter}"
+                        android:background="@drawable/buttonbackground"
+                        android:textColor="@color/text_color_with_red"
+                        android:text="Register" />
+
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:id="@+id/itemspinner"/>
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/buttonbackground"
+                        android:textSize="18sp"
+                        android:textAllCaps="false"
+                        android:layout_margin="8dp"
+                        android:onClick="@{homeviewmodela::move_to_UpCominge}"
+                        android:textColor="@color/text_color_with_red"
+                        android:text="UpComing Movies" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textAllCaps="false"
+                        android:textSize="18sp"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/buttonbackground"
+                        android:textColor="@color/text_color_with_red"
+                        android:text="Find A Role" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textAllCaps="false"
+                        android:textSize="18sp"
+                        android:layout_margin="8dp"
+                        android:onClick="@{homeviewmodela::loginefun}"
+                        android:background="@drawable/buttonbackground"
+                        android:textColor="@color/text_color_with_red"
+                        android:text="Log In" />
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>

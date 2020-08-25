@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/firstnavigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.cbitss.nziftaadmin.Fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_addContent"
+            app:destination="@id/addContent" />
+        <action
+            android:id="@+id/action_homeFragment_to_userTypeFregament"
+            app:destination="@id/userTypeFregament" />
+        <action
+            android:id="@+id/action_homeFragment_to_categoryAdd"
+            app:destination="@id/categoryAdd" />
+    </fragment>
+    <fragment
+        android:id="@+id/addContent"
+        android:name="com.cbitss.nziftaadmin.Fragments.AddContent"
+        android:label="fragment_add_content"
+        tools:layout="@layout/fragment_add_content" />
+    <fragment
+        android:id="@+id/categoryAdd"
+        android:name="com.cbitss.nziftaadmin.Fragments.CategoryAdd"
+        android:label="fragment_category_add"
+        tools:layout="@layout/fragment_category_add" />
+    <fragment
+        android:id="@+id/userTypeFregament"
+        android:name="com.cbitss.nziftaadmin.Fragments.UserTypeFregament"
+        android:label="fragment_user_type_fregament"
+        tools:layout="@layout/fragment_user_type_fregament" />
+</navigation>

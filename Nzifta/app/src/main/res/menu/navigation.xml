@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+    android:title="Home"
+    android:icon="@drawable/homeicon"
+    android:id="@+id/home_layout"
+    />
+
+
+    <item android:title="Annoucement"
+        android:id="@+id/annoucemnt_layout"
+        android:icon="@drawable/annoucements"/>
+    <item
+        android:title="events"
+        android:id="@+id/events_layout"
+        android:icon="@drawable/eventsicons"/>
+
+
+    <item android:title="Profile"
+        android:id="@+id/profile_layout"
+        android:icon="@drawable/profileicon"/>
+
+        />
+</menu>

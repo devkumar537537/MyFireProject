@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "369341452315",
+    "firebase_url": "https://nziftadatabase.firebaseio.com",
+    "project_id": "nziftadatabase",
+    "storage_bucket": "nziftadatabase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:369341452315:android:5b9d308529c2d6512e68be",
+        "android_client_info": {
+          "package_name": "com.cbitss.nziftaadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "369341452315-nce96ff0t6rm4tcf9lnq78aageb85jsf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cbitss.nziftaadmin",
+            "certificate_hash": "531ffe5834d150f419c3437738c714983e2e5b71"
+          }
+        },
+        {
+          "client_id": "369341452315-sge22thjubc60uhmfhaiipqp5ueqv469.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDafcw6Ebjt8XMk_zwFD6b9bVnA1p8oQW0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "369341452315-sge22thjubc60uhmfhaiipqp5ueqv469.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
