@@ -2,6 +2,7 @@ package com.cbitss.nzifta.viewmodels
 
 import android.net.Uri
 import android.view.View
+import android.widget.RadioButton
 import android.widget.Toast
 
 import androidx.lifecycle.ViewModel
@@ -11,6 +12,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class RegisterViewModel(var repositry: Repositry): ViewModel() {
+
     var email: String? = null
     var password: String? = null
     var name: String? = null
@@ -19,18 +21,19 @@ class RegisterViewModel(var repositry: Repositry): ViewModel() {
    var imageuri : Uri? = null
 
     var city:String? = null
-    var age:String? = "0"
-    var number_of_filsm: String? = "0"
-    var gender:String? = null
-var userageIstype = false
-    var userno_of_filmsIstype = false
+
+    var genders :String ="Male"
+
     var aboutwork:String? = null
 
     var usertype: String? = null
 
     var authListener: Authlistener? = null
      private val disposables = CompositeDisposable()
-
+//fun changevalue (gender:String)
+//{
+//    genders = gender
+//}
    fun insertUser(view : View)
     {
 
@@ -56,10 +59,6 @@ var userageIstype = false
         {
             authListener?.OnFailed("Please fill all field")
             return
-        }else if(gender.isNullOrEmpty() || gender.isNullOrBlank())
-        {
-            authListener?.OnFailed("Please fill all field")
-            return
         }else if(aboutwork.isNullOrEmpty() || aboutwork.isNullOrBlank())
         {
             authListener?.OnFailed("Please fill all field")
@@ -68,15 +67,21 @@ var userageIstype = false
         {
             authListener?.OnFailed("Please fill all field")
             return
-        }else if(imageuri == null)
-        {
-            authListener?.OnFailed("Image Uri can not be done")
-            return
         }
 
             authListener?.OnStart()
 
-            val disposable = repositry.insertUserr(email!!,password!!,name!!,number!!,city!!,age!!,number_of_filsm!!,gender!!,usertype!!,aboutwork!!,imageuri!!)
+            val disposable = repositry.insertUserr(
+                email !!,
+                password!!,
+                name!!,
+                number!!,
+                city!!,
+                genders!!,
+                aboutwork!!,
+                 imageuri!!,
+                usertype!!
+            )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -94,16 +99,4 @@ var userageIstype = false
 
 
 
-    fun visiblitylogic()
-    {
-        if(usertype.equals("Director"))
-        {
-            userno_of_filmsIstype = true
-        }
-
-        if(usertype.equals("Actor") || usertype.equals("Actoress"))
-        {
-            userageIstype = true
-        }
-    }
 }

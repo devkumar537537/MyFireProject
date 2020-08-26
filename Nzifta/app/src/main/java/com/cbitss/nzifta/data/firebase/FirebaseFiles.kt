@@ -1,12 +1,15 @@
 package com.cbitss.nzifta.data.firebase
 
+import android.content.Intent
 import android.net.Uri
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.cbitss.nzifta.pojoclass.Category
 import com.cbitss.nzifta.pojoclass.ContentClass
 import com.cbitss.nzifta.pojoclass.RegisterAs
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
@@ -85,14 +88,14 @@ class FirebaseFiles : AppCompatActivity() {
         })
         return list
     }
+
+
     fun insertUser(
         email: String,
         password: String,
         name: String,
         number: String,
         city: String,
-        age: String,
-        number_of_filsm: String,
         gender: String,
         aboutwork: String,
         profileimage: Uri,
@@ -100,70 +103,90 @@ class FirebaseFiles : AppCompatActivity() {
 
 
     ) = Completable.create { emitter ->
-        var userid = FirebaseAuth.getInstance().currentUser!!.uid
-        var databaseReference =
-            FirebaseDatabase.getInstance().getReference("Register").child(userid)
+var userid = FirebaseAuth.getInstance().currentUser!!.uid
+var databaseReference = FirebaseDatabase.getInstance().getReference("RegisterData").child(userid)
+                var registhastmap: HashMap<String, String> = HashMap()
+                registhastmap.put("id", userid)
+                registhastmap.put("email", email)
+                registhastmap.put("password", password)
+                registhastmap.put("name", name)
+                registhastmap.put("number", number)
+                registhastmap.put("city", city)
+                registhastmap.put("gender", gender)
+                registhastmap.put("aboutwork", aboutwork)
+                registhastmap.put("usertype", usertype)
+                registhastmap.put("imageurl", "default")
 
-        var registhastmap: HashMap<String, String> = HashMap()
-        registhastmap.put("id", userid)
-        registhastmap.put("email", email)
-        registhastmap.put("password", password)
-        registhastmap.put("name", name)
-        registhastmap.put("number", number)
-        registhastmap.put("city", city)
-        registhastmap.put("age", age)
-        registhastmap.put("number_of_filsm", number_of_filsm)
-        registhastmap.put("gender", gender)
-        registhastmap.put("aboutwork", aboutwork)
-        registhastmap.put("usertype", usertype)
-        registhastmap.put("imageurl", "default")
-
-        databaseReference.setValue(registhastmap).addOnCompleteListener {
-            if(!emitter.isDisposed)
-            {
-                if(it.isSuccessful)
-               
+            databaseReference.setValue(registhastmap).addOnCompleteListener {
+                if(!emitter.isDisposed)
+                {
+                    emitter.onComplete()
                 }else
                 {
                     emitter.onError(it.exception!!)
                 }
-
-        }
-
+            }
 
 
-
-
-
-        }
-
-
-    }
-
-    fun insetimage(uri: Uri,userid: String) = Completable.create {emitter ->
-
-
-           var storageReference = FirebaseStorage.getInstance().getReference("UserImages").child(userid).child("images/"+ UUID.randomUUID().toString())
-storageReference.putFile(uri).addOnCompleteListener {
-
-
-
-        if (it.isSuccessful) {
-            storageReference.getDownloadUrl().addOnSuccessListener {
-                if (it != null) {
-                    var imagurl = it.toString()
-                    var databaseReference =
-                        FirebaseDatabase.getInstance().getReference("Register").child(userid)
-                    databaseReference.child("imageurl").setValue(imagurl)
-                  emitter.onComplete()
-                }
 
             }
-        }
-    }
 
 
+
+    fun insertregisteruser(
+        email: String,
+        password: String,
+        name: String,
+        number: String,
+        city: String,
+        gender: String,
+        aboutwork: String,
+        profileimage: Uri,
+        usertype: String
+    ) {
+        var userid = FirebaseAuth.getInstance().currentUser!!.uid
+
+        var storageReference = FirebaseStorage.getInstance().getReference("Register").child(userid)
+
+        storageReference.putFile(profileimage).continueWithTask { task ->
+            if (!task.isSuccessful) {
+                throw task.exception!!
+            }
+            storageReference.getDownloadUrl()
+        }.addOnCompleteListener(OnCompleteListener<Uri?> { task ->
+            if (task.isSuccessful) {
+                val downUri = task.result.toString()
+
+                var registhastmap: HashMap<String, String> = HashMap()
+                registhastmap.put("id", userid)
+                registhastmap.put("email", email)
+                registhastmap.put("password", password)
+                registhastmap.put("name", name)
+                registhastmap.put("number", number)
+                registhastmap.put("city", city)
+                registhastmap.put("gender", gender)
+                registhastmap.put("aboutwork", aboutwork)
+                registhastmap.put("usertype", usertype)
+                registhastmap.put("imageurl", downUri)
+
+
+                var databaseReference =
+                    FirebaseDatabase.getInstance().getReference("RegisterData").child(userid)
+                databaseReference.setValue(registhastmap).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        return@addOnCompleteListener
+
+                    }
+
+                }.addOnFailureListener {
+                    return@addOnFailureListener
+                }
+
+
+            }
+        })
     }
+
 
 
     fun insertcontent(userid: String,designation: String,expectedsalar: String,brief_descripton:String) = Completable.create {emitter ->
@@ -182,9 +205,10 @@ storageReference.putFile(uri).addOnCompleteListener {
                     emitter.onComplete()
                 }
                 else
-                    emitter.onError(it.exception!!)
+                   { emitter.onError(it.exception!!)}
             }
         }
     }
 
 }
+

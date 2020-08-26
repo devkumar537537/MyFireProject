@@ -1,6 +1,7 @@
 package com.cbitss.nzifta.activities
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -12,6 +13,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -35,12 +37,11 @@ class RegisterActivity : AppCompatActivity(),KodeinAware,Authlistener {
     lateinit var binding: ActivityRegisterBinding
     override val kodein by kodein()
     private val factory: RegisterViewModelFactory by instance()
-      val CAMERA_REQUEST = 1
-    val MY_CAMERA_PERMISSION_CODE = 2
+// lateinit var gender :String
     var filePath: Uri? = null
 
 
-    lateinit var bitmap: Bitmap
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
       binding = DataBindingUtil.setContentView(this, R.layout.activity_register)
@@ -51,7 +52,7 @@ class RegisterActivity : AppCompatActivity(),KodeinAware,Authlistener {
         var getvalue = intent.getStringExtra("RegisterAs")
         viewmodel.usertype = getvalue
 
-        viewmodel.visiblitylogic()
+
 
 
 
@@ -59,59 +60,55 @@ class RegisterActivity : AppCompatActivity(),KodeinAware,Authlistener {
               selectimage()
           }
 
+//        radioGrp.setOnCheckedChangeListener { group, checkedId ->
+//            if (checkedId != -1) {
+//                var id = (findViewById<View>(checkedId) as RadioButton).getText().toString()
+//              gender = id
+//                Toast.makeText(applicationContext,"valeus is ${gender}",Toast.LENGTH_SHORT).show()
+////                viewmodel.changevalue(gender)
+//
+//            } else {
+////                viewmodel.gender = "Male"
+//                Toast.makeText(applicationContext,"nothing is selected",Toast.LENGTH_SHORT).show()
+//
+//            }
+  //      }
+
     }
 
 
 
     private fun selectimage() {
         if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(arrayOf(Manifest.permission.CAMERA), MY_CAMERA_PERMISSION_CODE)
+            requestPermissions(
+                arrayOf(Manifest.permission.CAMERA),
+                2
+            )
         } else {
             val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startActivityForResult(cameraIntent, CAMERA_REQUEST)
+            startActivityForResult(cameraIntent, 2)
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == CAMERA_REQUEST && resultCode == RESULT_OK)
+        if(requestCode == 2 && resultCode == Activity.RESULT_OK && data !=null )
         {
-            if(data != null)
-            {
-                 bitmap  = data.extras?.get("data") as Bitmap
-
-                binding.profileImagepicker.setImageBitmap(bitmap)
-
-                filePath = getImageUri(applicationContext,bitmap)
-                if(filePath != null )
-                {
-                    viewmodel.imageuri = filePath
-                }
 
 
-            }
-            }
+            val extras = data.extras
+            val imageBitmap = extras!!["data"] as Bitmap?
+            binding.profileImagepicker.setImageBitmap(imageBitmap)
+            filePath = getImageUriFromBitmap(applicationContext,imageBitmap!!)
+            viewmodel.imageuri = filePath
 
         }
-    fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
-        val bytes = ByteArrayOutputStream()
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path = MediaStore.Images.Media.insertImage(
-            inContext.getContentResolver(),
-            inImage,
-            "Title",
-            null
-        )
-        return Uri.parse(path)
+
     }
 
-    fun radiot_button_click(view: View)
-    {
-        val radio: RadioButton = findViewById(binding.radioGrp.checkedRadioButtonId)
 
-        viewmodel.gender = radio.text.toString()
-    }
+
 
     override fun OnStart() {
         binding.registerProgressbar.visibility = View.VISIBLE
@@ -126,6 +123,12 @@ class RegisterActivity : AppCompatActivity(),KodeinAware,Authlistener {
     override fun OnFailed(message: String) {
        binding.registerProgressbar.visibility = View.GONE
         Toast.makeText(applicationContext,"error $message",Toast.LENGTH_SHORT).show()
+    }
+    fun getImageUriFromBitmap(context: Context, bitmap: Bitmap): Uri{
+        val bytes = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Title", null)
+        return Uri.parse(path.toString())
     }
 }
 
