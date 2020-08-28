@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         var bottomanavigationbar: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        var spinner = findViewById<Spinner>(R.id.itemspinner)
+
 
 
 
@@ -57,14 +57,13 @@ class MainActivity : AppCompatActivity() {
     private fun openFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.framelayout, fragment)
-        transaction.addToBackStack(null)
         transaction.commit()
     }
 
     override fun onStart() {
         super.onStart()
-        val HomeFragment = Home.newInstance()
-        openFragment(HomeFragment)
+        val homeFragment = Home.newInstance()
+        openFragment(homeFragment)
     }
 
 

@@ -2,6 +2,7 @@ package com.cbitss.nzifta.Fragments
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,12 +18,13 @@ import com.cbitss.nzifta.modelfactries.HomeViewModelFactory
 import com.cbitss.nzifta.pojoclass.RegisterAs
 import com.cbitss.nzifta.viewmodels.Authlistener
 import com.cbitss.nzifta.viewmodels.HomeFragmentViewModel
+import io.reactivex.Observable
 
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 @Suppress("DEPRECATION")
-class Home : Fragment(),KodeinAware {
+class Home : Fragment(),KodeinAware,Authlistener {
 
     override val kodein by kodein()
     var usertypearray : MutableList<String> = ArrayList()
@@ -79,7 +81,7 @@ class Home : Fragment(),KodeinAware {
         binding.itemspinner.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
-                view: View,
+                view: View?,
                 position: Int,
                 id: Long
             ) {
@@ -96,6 +98,18 @@ class Home : Fragment(),KodeinAware {
     override fun onDestroyView() {
         super.onDestroyView()
         usertypearray.clear()
+    }
+
+    override fun OnStart() {
+
+    }
+
+    override fun OnSuccess() {
+
+    }
+
+    override fun OnFailed(message: String) {
+
     }
 
 }

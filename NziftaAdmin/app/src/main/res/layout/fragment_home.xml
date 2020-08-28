@@ -110,6 +110,7 @@
                     android:textAllCaps="false"
                     android:layout_margin="8dp"
                     android:padding="8dp"
+                    android:onClick="@{homeviewmodel::move_toseeeUsertypeactivity}"
                     android:textColor="@color/text_color_with_red"
                     android:text="@string/see_applies" />
 

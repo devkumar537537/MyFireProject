@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/user_navigation"
+    app:startDestination="@id/typeofUserFragment">
+
+
+    <fragment
+        android:id="@+id/appliesUser"
+        android:name="com.cbitss.nziftaadmin.Fragments.AppliesUser"
+        android:label="fragment_applies_user"
+        tools:layout="@layout/fragment_applies_user" >
+        <action
+            android:id="@+id/action_appliesUser_to_appliedUserDetail"
+            app:destination="@id/appliedUserDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/registeredUser"
+        android:name="com.cbitss.nziftaadmin.Fragments.RegisteredUser"
+        android:label="fragment_registered_user"
+        tools:layout="@layout/fragment_registered_user" >
+        <action
+            android:id="@+id/action_registeredUser_to_registerDetailuser"
+            app:destination="@id/registerDetailuser" />
+    </fragment>
+    <fragment
+        android:id="@+id/appliedUserDetail"
+        android:name="com.cbitss.nziftaadmin.Fragments.AppliedUserDetail"
+        android:label="fragment_applied_user_detail"
+        tools:layout="@layout/fragment_applied_user_detail" />
+    <fragment
+        android:id="@+id/registerDetailuser"
+        android:name="com.cbitss.nziftaadmin.Fragments.RegisterDetailuser"
+        android:label="fragment_register_detailuser"
+        tools:layout="@layout/fragment_register_detailuser" />
+    <fragment
+        android:id="@+id/typeofUserFragment"
+        android:name="com.cbitss.nziftaadmin.Fragments.TypeofUserFragment"
+        android:label="fragment_typeof_user"
+        tools:layout="@layout/fragment_typeof_user" >
+        <action
+            android:id="@+id/action_typeofUserFragment_to_appliesUser"
+            app:destination="@id/appliesUser" />
+        <action
+            android:id="@+id/action_typeofUserFragment_to_registeredUser"
+            app:destination="@id/registeredUser" />
+    </fragment>
+</navigation>

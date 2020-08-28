@@ -12,6 +12,7 @@ import com.cbitss.nziftaadmin.databinding.ActivityLoginBinding
 import com.cbitss.nziftaadmin.modelfactories.InsertUsrtypeModelFactory
 import com.cbitss.nziftaadmin.viewmodels.Authlistener
 import com.cbitss.nziftaadmin.viewmodels.UserTypeModel
+import com.google.firebase.auth.FirebaseAuth
 
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
@@ -50,5 +51,19 @@ class Login : AppCompatActivity(),Authlistener,KodeinAware {
 
     override fun OnStart() {
        binding.adminloginProgressbasr.visibility = View.VISIBLE
+
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        val firebaseuser = FirebaseAuth.getInstance().currentUser
+
+        if(firebaseuser != null)
+        {
+            val intent = Intent(applicationContext,MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

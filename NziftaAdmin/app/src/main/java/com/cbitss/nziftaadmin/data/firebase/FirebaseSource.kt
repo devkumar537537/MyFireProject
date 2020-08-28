@@ -11,7 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import io.reactivex.Completable
 
-class FirebaseSource : AppCompatActivity(){
+class FirebaseSource {
     var arraylist: MutableList<Category> = ArrayList()
     var contentlist: MutableList<Contentdatalcass> = ArrayList()
 
@@ -132,8 +132,5 @@ fun fetchusetype() : LiveData<List<Category>> {
             } })
         return list
     }
-    override fun onDestroy() {
-        super.onDestroy()
-        databaseReference.removeEventListener(valueEventListener)
-    }
+
 }

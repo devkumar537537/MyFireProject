@@ -18,19 +18,20 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
-class FirebaseFiles : AppCompatActivity() {
+class FirebaseFiles {
+
+
 
     //    var arraylist: MutableList<Category> = ArrayList()
     var usertypelist: MutableList<RegisterAs> = ArrayList()
     var ItemCategorylist: MutableList<Category> = ArrayList()
     var ItemContentList: MutableList<ContentClass> = ArrayList()
-    lateinit var valueEventListener: ValueEventListener
-    lateinit var databaseReference: DatabaseReference
+
 
     fun fetchusetype(): LiveData<List<RegisterAs>> {
         var list: MutableLiveData<List<RegisterAs>> = MutableLiveData()
-        databaseReference = FirebaseDatabase.getInstance().getReference("Usertype")
-        valueEventListener = databaseReference.addValueEventListener(object : ValueEventListener {
+      val  databaseReference = FirebaseDatabase.getInstance().getReference("Usertype")
+      databaseReference.addValueEventListener(object : ValueEventListener {
 
             override fun onCancelled(error: DatabaseError) {
             }
@@ -48,8 +49,8 @@ class FirebaseFiles : AppCompatActivity() {
     }
     fun fetcItemCategory(): LiveData<List<Category>> {
         var list: MutableLiveData<List<Category>> = MutableLiveData()
-        databaseReference = FirebaseDatabase.getInstance().getReference("Categories")
-        valueEventListener = databaseReference.addValueEventListener(object : ValueEventListener {
+       val  databaseReference = FirebaseDatabase.getInstance().getReference("Categories")
+         databaseReference.addValueEventListener(object : ValueEventListener {
 
             override fun onCancelled(error: DatabaseError) {
             }
@@ -67,8 +68,8 @@ class FirebaseFiles : AppCompatActivity() {
     }
     fun getcategoryContent(categorytag: String): LiveData<List<ContentClass>> {
         var list: MutableLiveData<List<ContentClass>> = MutableLiveData()
-        databaseReference = FirebaseDatabase.getInstance().getReference("Content")
-        valueEventListener = databaseReference.addValueEventListener(object : ValueEventListener {
+       val databaseReference = FirebaseDatabase.getInstance().getReference("Content")
+         databaseReference.addValueEventListener(object : ValueEventListener {
 
             override fun onCancelled(error: DatabaseError) {
             }
@@ -89,116 +90,63 @@ class FirebaseFiles : AppCompatActivity() {
         return list
     }
 
+fun inserregisteruser(
+    email: String,
+    password: String,
+    name: String,
+    number: String,
+    city: String,
+    aboutword: String,
+    usertype: String
+) = Completable.create {emitter ->
+    val userid = FirebaseAuth.getInstance().currentUser!!.uid
+     val databaseReference = FirebaseDatabase.getInstance().getReference("RegisterUser").child(userid)
 
-    fun insertUser(
-        email: String,
-        password: String,
-        name: String,
-        number: String,
-        city: String,
-        gender: String,
-        aboutwork: String,
-        profileimage: Uri,
-        usertype: String
+  var registmap: MutableMap<String, String> = hashMapOf(
+      "useremail" to email,
+      "userPassword" to password,
+      "userName" to name,
+      "userNumber" to number,
+      "userCity" to city,
+      "aboutword" to aboutword,
+      "usertype" to usertype,
+      "imagerurl" to "default",
+      "gender" to "gender",
+      "working_status" to "Not working",
+      "Which_project" to "AbcdProjcet"
 
+  )
+   databaseReference.setValue(registmap).addOnCompleteListener {
 
-    ) = Completable.create { emitter ->
-var userid = FirebaseAuth.getInstance().currentUser!!.uid
-var databaseReference = FirebaseDatabase.getInstance().getReference("RegisterData").child(userid)
-                var registhastmap: HashMap<String, String> = HashMap()
-                registhastmap.put("id", userid)
-                registhastmap.put("email", email)
-                registhastmap.put("password", password)
-                registhastmap.put("name", name)
-                registhastmap.put("number", number)
-                registhastmap.put("city", city)
-                registhastmap.put("gender", gender)
-                registhastmap.put("aboutwork", aboutwork)
-                registhastmap.put("usertype", usertype)
-                registhastmap.put("imageurl", "default")
+      if(!emitter.isDisposed)
+      {
+          if(it.isSuccessful)
+          {
+              emitter.onComplete()
+          }else
+          {
+              emitter.onError(it.exception!!)
+          }
+      }
 
-            databaseReference.setValue(registhastmap).addOnCompleteListener {
-                if(!emitter.isDisposed)
-                {
-                    emitter.onComplete()
-                }else
-                {
-                    emitter.onError(it.exception!!)
-                }
-            }
-
-
-
-            }
-
+   }
 
 
-    fun insertregisteruser(
-        email: String,
-        password: String,
-        name: String,
-        number: String,
-        city: String,
-        gender: String,
-        aboutwork: String,
-        profileimage: Uri,
-        usertype: String
-    ) {
-        var userid = FirebaseAuth.getInstance().currentUser!!.uid
+}
 
-        var storageReference = FirebaseStorage.getInstance().getReference("Register").child(userid)
+    fun insertcontent(useridd: String,designation: String,expectedsalar: String,brief_descripton:String) = Completable.create {emitter ->
 
-        storageReference.putFile(profileimage).continueWithTask { task ->
-            if (!task.isSuccessful) {
-                throw task.exception!!
-            }
-            storageReference.getDownloadUrl()
-        }.addOnCompleteListener(OnCompleteListener<Uri?> { task ->
-            if (task.isSuccessful) {
-                val downUri = task.result.toString()
-
-                var registhastmap: HashMap<String, String> = HashMap()
-                registhastmap.put("id", userid)
-                registhastmap.put("email", email)
-                registhastmap.put("password", password)
-                registhastmap.put("name", name)
-                registhastmap.put("number", number)
-                registhastmap.put("city", city)
-                registhastmap.put("gender", gender)
-                registhastmap.put("aboutwork", aboutwork)
-                registhastmap.put("usertype", usertype)
-                registhastmap.put("imageurl", downUri)
-
-
-                var databaseReference =
-                    FirebaseDatabase.getInstance().getReference("RegisterData").child(userid)
-                databaseReference.setValue(registhastmap).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        return@addOnCompleteListener
-
-                    }
-
-                }.addOnFailureListener {
-                    return@addOnFailureListener
-                }
-
-
-            }
-        })
-    }
-
-
-
-    fun insertcontent(userid: String,designation: String,expectedsalar: String,brief_descripton:String) = Completable.create {emitter ->
-        var databaseReference = FirebaseDatabase.getInstance().getReference("AppliedUsers")
+         var userId  = FirebaseAuth.getInstance().currentUser!!.uid
+        var databaseReference = FirebaseDatabase.getInstance().getReference("AppliedUsers").child(userId)
 
         var contentmap: HashMap<String,String> = HashMap()
-        contentmap.put("userid",userid)
+        contentmap.put("userid",userId)
         contentmap.put("desigantion",designation)
         contentmap.put("expected_Salary",expectedsalar)
         contentmap.put("brief_description",brief_descripton)
+        contentmap.put("nodeId",useridd)
 
-        databaseReference.child(userid).setValue(contentmap).addOnCompleteListener {
+        databaseReference.setValue(contentmap).addOnCompleteListener {
             if (!emitter.isDisposed) {
                 if (it.isSuccessful)
                 {

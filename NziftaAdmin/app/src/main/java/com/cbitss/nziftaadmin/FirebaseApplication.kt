@@ -3,6 +3,7 @@ package com.cbitss.nziftaadmin
 import android.app.Application
 import com.cbitss.nziftaadmin.data.firebase.FirebaseSource
 import com.cbitss.nziftaadmin.data.repositries.Repositry
+import com.cbitss.nziftaadmin.modelfactories.AppliedUserViewModelFactory
 import com.cbitss.nziftaadmin.modelfactories.ContentViewModelFactory
 import com.cbitss.nziftaadmin.modelfactories.InsertUsrtypeModelFactory
 import org.kodein.di.Kodein
@@ -20,5 +21,6 @@ class FirebaseApplication : Application() ,KodeinAware {
         bind() from singleton { Repositry(instance()) }
         bind() from provider { InsertUsrtypeModelFactory(instance()) }
         bind() from provider { ContentViewModelFactory(instance()) }
+        bind() from provider { AppliedUserViewModelFactory(instance()) }
     }
 }

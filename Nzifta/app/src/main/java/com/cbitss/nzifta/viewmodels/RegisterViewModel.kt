@@ -1,102 +1,88 @@
 package com.cbitss.nzifta.viewmodels
 
-import android.net.Uri
 import android.view.View
-import android.widget.RadioButton
 import android.widget.Toast
-
 import androidx.lifecycle.ViewModel
 import com.cbitss.nzifta.data.repositries.Repositry
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class RegisterViewModel(var repositry: Repositry): ViewModel() {
+class RegisterViewModel( private val repositry: Repositry): ViewModel(){
 
-    var email: String? = null
-    var password: String? = null
-    var name: String? = null
-    var  number: String? = null
-
-   var imageuri : Uri? = null
-
-    var city:String? = null
-
-    var genders :String ="Male"
-
-    var aboutwork:String? = null
-
-    var usertype: String? = null
-
-    var authListener: Authlistener? = null
-     private val disposables = CompositeDisposable()
-//fun changevalue (gender:String)
-//{
-//    genders = gender
-//}
-   fun insertUser(view : View)
+    var email_register: String? = null
+    var password_register: String? = null
+    var name_register : String? = null
+    var number_register: String? = null
+    var city_register: String? = null
+    var about: String? = null
+    var usertypetext: String? = null
+    var authlistener : Authlistener ? = null
+    private val disposables = CompositeDisposable()
+    fun insertuser(view : View)
     {
-
-
-
-        if(email.isNullOrBlank() || email.isNullOrEmpty())
+        if(email_register.isNullOrEmpty())
         {
-            authListener?.OnFailed("Please fill all field")
+            authlistener?.OnFailed("please enter email")
             return
-        }else if(password.isNullOrBlank() || password.isNullOrEmpty())
+        }else if(password_register.isNullOrEmpty())
         {
-            authListener?.OnFailed("Please fill all field")
+            authlistener?.OnFailed("please enter password")
             return
-        }else if(name.isNullOrEmpty() || name.isNullOrBlank())
+        }else if(name_register.isNullOrEmpty())
         {
-            authListener?.OnFailed("Please fill all field")
+            authlistener?.OnFailed("please enter name")
             return
-        }else if(number.isNullOrEmpty() || number.isNullOrBlank())
+        }else if(number_register.isNullOrEmpty())
         {
-            authListener?.OnFailed("Please fill all field")
+            authlistener?.OnFailed("please enter number")
             return
-        }else if(city.isNullOrEmpty() || city.isNullOrBlank())
+        }else if(city_register.isNullOrEmpty())
         {
-            authListener?.OnFailed("Please fill all field")
+            authlistener?.OnFailed("please enter city")
             return
-        }else if(aboutwork.isNullOrEmpty() || aboutwork.isNullOrBlank())
+        }else if(about.isNullOrEmpty())
         {
-            authListener?.OnFailed("Please fill all field")
+            authlistener?.OnFailed("please enter about")
             return
-        }else if(usertype.isNullOrEmpty() || usertype.isNullOrBlank())
+        }else if(usertypetext.isNullOrEmpty())
         {
-            authListener?.OnFailed("Please fill all field")
+            authlistener?.OnFailed("please enter usertype")
             return
         }
 
-            authListener?.OnStart()
+        authlistener?.OnStart()
 
-            val disposable = repositry.insertUserr(
-                email !!,
-                password!!,
-                name!!,
-                number!!,
-                city!!,
-                genders!!,
-                aboutwork!!,
-                 imageuri!!,
-                usertype!!
-            )
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    authListener?.OnSuccess()
+       val disposal   =  repositry.insertrpostryapplieduser(
+        email_register!!,
+        password_register!!,
+        name_register!!,
+        number_register!!,
+        city_register!!,
+        about!!,
+        usertypetext!!
 
-                },{
-                    authListener?.OnFailed(it.message!!)
-                })
+    )
+           .subscribeOn(Schedulers.io())
+           .observeOn(AndroidSchedulers.mainThread())
+           .subscribe({
+               authlistener?.OnSuccess()
 
-            disposables.add(disposable)
+           },{
+               try {
+                   authlistener?.OnFailed(it.message!!)
+               }catch (e:KotlinNullPointerException)
+               {
+                   Toast.makeText(view.context,"This is $e",Toast.LENGTH_LONG).show()
+               }
 
+           })
 
-
+        disposables.add(disposal)
     }
 
-
-
+    override fun onCleared() {
+        super.onCleared()
+        disposables.dispose()
+    }
 }
